@@ -1,28 +1,23 @@
 # DialogueSystem
-El sistema de diálogo utiliza como sistema de reconocimiento automático del habla el sistema Whisper de Openai.
-Tiene que existir un servicio con whisper. Este servicio se indica en la línea 58 del script demovirtualassistant.py
+The dialogue system uses Openai's Whisper system as an automatic speech recognition system. There has to be a service with whisper. This service is indicated in line 58 of the demovirtualassistant.py script
 
-url = 'http://signal4.cps.unizar.es:8000/transcribe'  # Cambiar por la URL correcta
+url = 'http://signal4.cps.unizar.es:8000/transcribe' # Change to the correct URL
 
-Este servicio está definido en el script app.py que supone que está instalado el sistema whisper.
-Este servicio se levanta utilizando flask.
+This service is defined in the app.py script which assumes system whisper is installed. This service is built using flask.
 
 flask run --host 0.0.0.0 --port 8000
 
-Para que el frontend del sistema de diálogo sea accesible desde cualquier máquina es necesario utilizar una conexión segura para que
-permita utilizar el micrófono, lo que supone utilizar una versión de streamlit que permita conexiones en https y crear un certificado digital para dicha conexión
+In order for the frontend of the dialog system to be accessible from any machine, it is necessary to use a secure connection to allow the use of the microphone, which means using a version of streamlit that allows https connections and creating a digital certificate for the connection.
 
-La demo se levanta utilizando streamlit
+The demo is launch using streamlit
 
 streamlit run demovirtualassistant.py --server.port 8505 --server.sslCertFile=./cert/server.crt --server.sslKeyFile=./cert/server.key
 
-Si no se lanza por https solo se puede utilizar en el ordenador que lanza el servicio.
+If it is not launched via https, it can only be used on the computer that launches the service.
 
-Si se quiere utilizar los modelos de lenguaje de Openai, hay que indicar la llave del API de Openai.
-En la línea 54 se lee dicha llave
+If you want to use the Openai language models, you must indicate the Openai API key. The key is read in line 54
 
 openai.api_key = os.getenv("OPENAI_API_KEY")
 
-por lo que tiene que estar definida en la variable de entorno OPENAI_API_KEY.
-El modelo vicuna-13b solo se puede utilizar si el frontend se levanta en la subred de la universidad de Zaragoza.
+so it has to be defined in the OPENAI_API_KEY environment variable. The vicuna-13b model can only be used if the frontend is set up in the subnet of the University of Zaragoza.
 
